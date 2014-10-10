@@ -42,7 +42,7 @@ class install_with_kernelspec(install):
         with open(os.path.join(destdir, 'kernel.json'), 'w') as f:
             json.dump(kernel_json, f, sort_keys=True)
 
-        print("Updated kernel.json in", destdir)
+        print("Updated kernel.json in %s" % destdir)
 
         cmhydir = os.path.join(
           locate_profile(),
@@ -54,7 +54,7 @@ class install_with_kernelspec(install):
         )
         ensure_dir_exists(cmhydir)
         shutil.copy("hy.js", cmhydir)
-        print("Installed hy.js to", cmhydir)
+        print("Installed hy.js to %s" % cmhydir)
 
 with open('README.md') as f:
     readme = f.read()

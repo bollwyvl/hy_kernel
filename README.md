@@ -14,7 +14,7 @@ A simple [IPython][] kernel for [Hy](http://hylang.org), a pythonic lisp.
 To give it a spin, either check out this repo and `python setup.py` or:
 
 ```shell
-pip install https://github.com/bollwyvl/hy_kernel/zipball/master
+pip install -U https://github.com/bollwyvl/hy_kernel/zipball/master
 ```
 
 Then:
