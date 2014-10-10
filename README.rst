@@ -1,10 +1,10 @@
-A simple IPython kernel for bash
+A simple IPython kernel for hy
 
 This requires IPython 3, which is not yet released.
 
 To test it, install with ``setup.py``, then::
 
-    ipython qtconsole --kernel bash
+    ipython qtconsole --kernel hy
 
 For details of how this works, see IPython's docs on `wrapper kernels
 <http://ipython.org/ipython-doc/dev/development/wrapperkernels.html>`_, and
