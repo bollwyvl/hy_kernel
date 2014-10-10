@@ -24,7 +24,7 @@ class HyKernel(IPythonKernel):
     language = 'python'  # will be used for
                          # syntax highlighting
     language_version = ''
-    banner = 'Simple plotting'
+    banner = 'Hy is a wonderful dialect of Lisp that’s embedded in Python.'
 
     # lifted from ipython/ipython/IPython/core/interactiveshell.py
     def _run_cell(self, raw_cell, store_history=False, silent=False, shell_futures=True):
