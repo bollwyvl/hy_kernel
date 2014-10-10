@@ -56,7 +56,7 @@ class install_with_kernelspec(install):
         shutil.copy("hy.js", cmhydir)
         print("Installed hy.js to", cmhydir)
 
-with open('README.rst') as f:
+with open('README.md') as f:
     readme = f.read()
 
 svem_flag = '--single-version-externally-managed'

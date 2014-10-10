@@ -19,11 +19,11 @@ from hy._compat import builtins
 SIMPLE_TRACEBACKS = True
 
 class HyKernel(IPythonKernel):
-    implementation = 'ihy'
-    implementation_version = '1.0'
+    implementation = 'hy'
+    implementation_version = '0.1'
     language = 'python'  # will be used for
                          # syntax highlighting
-    language_version = ''
+    language_version = '0.10.1'
     banner = 'Hy is a wonderful dialect of Lisp that’s embedded in Python.'
 
     # lifted from ipython/ipython/IPython/core/interactiveshell.py

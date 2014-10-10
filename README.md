@@ -47,5 +47,5 @@ Browser-based syntax highlighting is installed into the `static` area of the def
 [IPythonKernel]: https://github.com/ipython/ipython/blob/master/IPython/kernel/zmq/ipkernel.py
 [KernelBase]: https://github.com/ipython/ipython/blob/master/IPython/kernel/zmq/kernelbase.py
 [lighttable-hylang]: https://github.com/cndreisbach/lighttable-hylang
-[tutorial]: http://docs.hylang.org/en/latest/tutorial.html
+[tutorial]: http://nbviewer.ipython.org/github/bollwyvl/hy_kernel/blob/master/notebooks/Tutorial.ipynb
 [IPython]: http://ipython.org
