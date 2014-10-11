@@ -20,8 +20,8 @@ def setup_assets(kernel_dir=None, profile_dir=None, quiet=False):
     except Exception as err:
         print(err)
         print(
-            "Couldn't find a profile, probably... run"
-            "\tpython -m hy_kernel.hy_setup"
+            "Couldn't find a profile, probably... run\n"
+            "\tpython -m hy_kernel.hy_setup\n"
             "manually."
         )
         return
