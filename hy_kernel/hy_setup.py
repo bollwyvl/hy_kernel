@@ -15,8 +15,19 @@ def setup_assets(kernel_dir=None, profile_dir=None, quiet=False):
     if not quiet:
         print("Updated kernel.json in %s" % destdir)
 
+    try:
+        profile_dir = profile_dir or locate_profile()
+    except Exception as err:
+        print(err)
+        print(
+            "Couldn't find a profile, probably... run"
+            "\tpython -m hy_kernel.hy_setup"
+            "manually."
+        )
+        return
+
     cmhydir = join(
-      profile_dir or locate_profile(),
+      profile_dir,
       'static',
       'components',
       'codemirror',
@@ -27,3 +38,9 @@ def setup_assets(kernel_dir=None, profile_dir=None, quiet=False):
     shutil.copy(join(pkgroot, "hy.js"), cmhydir)
     if not quiet:
         print("Installed hy.js to %s" % cmhydir)
+
+def hy_setup():
+    setup_assets()
+
+if __name__ == "__main__":
+    hy_setup()
