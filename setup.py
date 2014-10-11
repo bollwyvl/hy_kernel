@@ -23,19 +23,20 @@ if svem_flag in sys.argv:
     sys.argv.remove(svem_flag)
 
 setup(name='hy_kernel',
-      version='0.1',
-      description='A hy kernel for IPython',
-      long_description=readme,
-      author='Nicholas Bollweg',
-      author_email='nick.bollweg@gmail.com',
-      url='https://github.com/bollwyvl/hy_kernel',
-      packages=find_packages(exclude=('tests', 'notebooks')),
-      cmdclass={'install': install_with_kernelspec},
-      install_requires=['hy>=0.10.1'],
-      classifiers = [
-          'Framework :: IPython',
-          'License :: OSI Approved :: BSD License',
-          'Programming Language :: Python :: 3',
-          'Programming Language :: Lisp',
-      ]
+    version='0.1',
+    description='A hy kernel for IPython',
+    long_description=readme,
+    author='Nicholas Bollweg',
+    author_email='nick.bollweg@gmail.com',
+    url='https://github.com/bollwyvl/hy_kernel',
+    packages=find_packages(exclude=('tests', 'notebooks')),
+    include_package_data=True,
+    cmdclass={'install': install_with_kernelspec},
+    install_requires=['hy>=0.10.1'],
+    classifiers = [
+        'Framework :: IPython',
+        'License :: OSI Approved :: BSD License',
+        'Programming Language :: Python :: 3',
+        'Programming Language :: Lisp',
+    ]
 )
