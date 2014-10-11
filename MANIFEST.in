@@ -1,1 +1,2 @@
-include README.md hy_kernel/hy.js hy_kernel/kernel.json
+include README.md
+recursive-include hy_kernel/assets *

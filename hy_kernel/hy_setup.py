@@ -11,7 +11,7 @@ def setup_assets(kernel_dir=None, profile_dir=None, quiet=False):
 
     destdir = join(kernel_dir or KernelSpecManager().user_kernel_dir, 'hy')
     ensure_dir_exists(destdir)
-    shutil.copy(join(pkgroot, "kernel.json"), destdir)
+    shutil.copy(join(pkgroot, "assets", "kernel.json"), destdir)
     if not quiet:
         print("Updated kernel.json in %s" % destdir)
 
@@ -35,7 +35,7 @@ def setup_assets(kernel_dir=None, profile_dir=None, quiet=False):
       'hy'
     )
     ensure_dir_exists(cmhydir)
-    shutil.copy(join(pkgroot, "hy.js"), cmhydir)
+    shutil.copy(join(pkgroot, "assets", "hy.js"), cmhydir)
     if not quiet:
         print("Installed hy.js to %s" % cmhydir)
 
