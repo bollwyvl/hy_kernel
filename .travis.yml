@@ -12,6 +12,6 @@ before_install:
 install:
   - time pip install 'tornado<4'
   - time pip install -r requirements-test.txt
-  - time python setup.py install .
+  - time python setup.py install
 script:
   - python tests/test_notebook.py
