@@ -1,0 +1,17 @@
+# http://travis-ci.org/#!/bollwyvl/hy_kernel
+language: python
+python:
+  - 2.7
+  - 3.3
+  - 3.4
+before_install:
+  - npm install -g casperjs
+  - phantomjs --version
+  - casperjs --version
+  - time sudo apt-get install libzmq3-dev
+install:
+  - time pip install 'tornado<4'
+  - time pip install -r requirements-test.txt
+  - time pip install -U .
+script:
+  - python tests/test_notebook.py

@@ -5,6 +5,8 @@ import traceback
 
 from IPython.kernel.zmq.ipkernel import IPythonKernel
 
+import astor
+
 import hy
 
 from hy.lex import LexException, PrematureEndOfInput, tokenize
@@ -21,82 +23,9 @@ SIMPLE_TRACEBACKS = True
 class HyKernel(IPythonKernel):
     implementation = 'hy'
     implementation_version = '0.1'
-    language = 'python'  # will be used for
-                         # syntax highlighting
+    language = 'hy'
     language_version = '0.10.1'
     banner = 'Hy is a wonderful dialect of Lisp that’s embedded in Python.'
-
-    # lifted from ipython/ipython/IPython/core/interactiveshell.py
-    def _run_cell(self, raw_cell, store_history=False, silent=False, shell_futures=True):
-        """Run a complete IPython cell.
-
-        Parameters
-        ----------
-        raw_cell : str
-          The code (including IPython code such as %magic functions) to run.
-        store_history : bool
-          If True, the raw and translated cell will be stored in IPython's
-          history. For user code calling back into IPython's machinery, this
-          should be set to False.
-        silent : bool
-          If True, avoid side-effects, such as implicit displayhooks and
-          and logging.  silent=True forces store_history=False.
-        shell_futures : bool
-          If True, the code will share future statements with the interactive
-          shell. It will both be affected by previous __future__ imports, and
-          any __future__ imports in the code will affect the shell. If False,
-          __future__ imports are not shared in either direction.
-        """
-
-        shell = self.shell
-
-        if (not raw_cell) or raw_cell.isspace():
-            return
-
-        if silent:
-            store_history = False
-
-        shell.events.trigger('pre_execute')
-        if not silent:
-            shell.events.trigger('pre_run_cell')
-
-        # If any of our input transformation (input_transformer_manager or
-        # prefilter_manager) raises an exception, we store it in this variable
-        # so that we can display the error after logging the input and storing
-        # it in the history.
-        cell = raw_cell  # cell has to exist so it can be stored/logged
-
-        # Store raw and processed history
-        if store_history:
-            shell.history_manager.store_inputs(shell.execution_count,
-                                              cell, raw_cell)
-        if not silent:
-            shell.logger.log(cell, raw_cell)
-
-        compiler = ast_compile
-
-        with shell.builtin_trap:
-            cell_name = shell.compile.cache(cell, shell.execution_count)
-
-            with shell.display_trap:
-                # Execute the user code
-                interactivity = "none" if silent else shell.ast_node_interactivity
-                tokens = tokenize(raw_cell)
-                _ast = hy_compile(tokens, "__console__", root=ast.Interactive)
-                shell.run_ast_nodes(_ast.body, cell_name,
-                                   interactivity=interactivity, compiler=compiler)
-
-                shell.events.trigger('post_execute')
-                if not silent:
-                    shell.events.trigger('post_run_cell')
-
-        if store_history:
-            # Write output to the database. Does nothing unless
-            # history output logging is enabled.
-            shell.history_manager.store_output(shell.execution_count)
-            # Each cell is a *single* input, regardless of how many lines it has
-            shell.execution_count += 1
-
 
     def do_execute(self, code, silent, store_history=True,
                    user_expressions=None, allow_stdin=False):
@@ -109,7 +38,16 @@ class HyKernel(IPythonKernel):
         shell._reply_content = None
 
         try:
-            self._run_cell(code, store_history=store_history, silent=silent)
+            #self._run_cell(code, store_history=store_history, silent=silent)
+
+            tokens = tokenize(code)
+            _ast = hy_compile(tokens, "__console__", root=ast.Interactive)
+            _ast_for_print = ast.Module()
+            _ast_for_print.body = _ast.body
+            
+            shell.run_cell(astor.codegen.to_source(_ast_for_print),
+                store_history=store_history,
+                silent=silent)
         except:
             status = u'error'
             # FIXME: this code right now isn't being used yet by default,
@@ -164,7 +102,7 @@ class HyKernel(IPythonKernel):
         shell.payload_manager.clear_payload()
 
         return reply_content
-
+    
 if __name__ == '__main__':
     from IPython.kernel.zmq.kernelapp import IPKernelApp
     IPKernelApp.launch_instance(kernel_class=HyKernel)

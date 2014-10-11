@@ -1,2 +1,3 @@
-include README.rst
-include hy.js
+include README.md
+include hy_kernel/hy.js
+include hy_kernel/kernel.json

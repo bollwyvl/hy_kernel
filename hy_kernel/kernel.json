@@ -1,0 +1,20 @@
+{
+  "argv": ["python", "-m", "hy_kernel.hy_kernel", "-f", "{connection_file}"],
+  "display_name": "Hy",
+  "language": "hy",
+  "codemirror_mode": "hy",
+  "help_links": [
+    {
+      "text": "Hy Documentation",
+      "link": "http://docs.hylang.org/"
+    },
+    {
+      "text": "Hy Google Group",
+      "link": "https://groups.google.com/forum/#!forum/hylang-discuss"
+    },
+    {
+      "text": "Hy Github",
+      "link": "https://github.com/hylang/hy"
+    }
+  ]
+}
