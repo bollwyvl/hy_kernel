@@ -5,7 +5,7 @@ import time
 
 from glob import glob
 
-from hy_kernel.setup import setup
+from hy_kernel import setup_assets
 
 from IPython.testing import iptestcontroller
 
@@ -40,7 +40,7 @@ class JSController(iptestcontroller.JSController):
         # let the super set up the temporary ipython dir
         super(JSController, self).setup()
         # install the assets
-        setup(
+        setup_assets(
             kernel_dir=join(self.ipydir.name, 'kernels'),
             profile_dir=join(self.ipydir.name, 'profile', 'default'),
             quiet=True

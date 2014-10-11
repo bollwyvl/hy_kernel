@@ -11,8 +11,8 @@ class install_with_kernelspec(install):
         # Regular installation
         install.run(self)
         
-        from hy_kernel.setup import setup
-        setup()
+        from hy_kernel import setup_assets
+        setup_assets()
 
 with open('README.md') as f:
     readme = f.read()
