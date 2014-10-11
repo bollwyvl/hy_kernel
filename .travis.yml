@@ -10,8 +10,8 @@ before_install:
   - casperjs --version
   - time sudo apt-get install libzmq3-dev
 install:
-  - time pip install 'tornado<4'
-  - time pip install -r requirements-test.txt
-  - time python setup.py install
+  - pip install 'tornado<4'
+  - pip install -r requirements-test.txt
+  - python setup.py install
 script:
   - python tests/test_notebook.py
