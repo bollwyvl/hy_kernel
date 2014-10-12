@@ -10,7 +10,7 @@ This requires IPython 3, which is not yet released. It is pretty easy to
 
 ## Features
 - basic REPL functionality
-- autocomplete (from IPython)
+- autocomplete from IPython, and most special Hy constructs
 - syntax highlighting from [lighttable-hylang][]
 - cell and line magics
 - pretty good tests
@@ -55,7 +55,6 @@ Issues, pull requests and forks are all supported and encouraged. This
 [discussion on `hylang-discuss`][discuss] is also a good place to chime in.
 
 ## TODO
-- `do_complete` for better autocomplete
 - `do_inspect` for inspection
 
 [Build Status]: https://travis-ci.org/bollwyvl/hy_kernel.svg?branch=master
