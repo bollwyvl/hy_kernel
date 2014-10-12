@@ -4,8 +4,8 @@ from IPython.kernel.zmq.ipkernel import IPythonKernel
 
 import astor
 
-from hy.lex import tokenize, LexException
-from hy.compiler import hy_compile, HyTypeError
+from hy.lex import tokenize
+from hy.compiler import hy_compile
 from hy.completer import PATH
 
 
@@ -27,7 +27,9 @@ class HyKernel(IPythonKernel):
             _ast_for_print = ast.Module()
             _ast_for_print.body = _ast.body
             code = astor.codegen.to_source(_ast_for_print)
-        except (HyTypeError, LexException):
+        except Exception as err:
+            if (not hasattr(err, 'source')) or not err.source:
+                err.source = code
             # shell will find the last exception
             self.shell.showsyntaxerror()
             # an empty code cell is basically a no-op
@@ -43,7 +45,7 @@ class HyKernel(IPythonKernel):
 
         for p in PATH:
             p = filter(lambda x: isinstance(x, str), p.keys())
-            p = [x.replace("_", "-") for x in p]
+            p = [x.replace('_', '-') for x in p]
             matches.extend([
                 x for x in p
                 if x.startswith(txt) and x not in matches

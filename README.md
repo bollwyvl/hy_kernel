@@ -1,5 +1,5 @@
 # hy_kernel
-[![Build Status][]][badge]
+[![badge][]][Build Status]
 A simple [IPython][] kernel for [Hy](http://hylang.org), a pythonic lisp.
 
 > NOTE:
@@ -12,8 +12,8 @@ This requires IPython 3, which is not yet released. It is pretty easy to
 - basic REPL functionality
 - autocomplete from IPython, and most special Hy constructs
 - syntax highlighting from [lighttable-hylang][]
-- cell and line magics
-- pretty good tests
+- [cell and line magics][magic]
+- [pretty good tests][Build Status]
 
 ## Installation
 To give it a spin, either check out this repo and `python setup.py install` or:
@@ -57,8 +57,8 @@ Issues, pull requests and forks are all supported and encouraged. This
 ## TODO
 - `do_inspect` for inspection
 
-[Build Status]: https://travis-ci.org/bollwyvl/hy_kernel.svg?branch=master
-[badge]: https://travis-ci.org/bollwyvl/hy_kernel
+[badge]: https://travis-ci.org/bollwyvl/hy_kernel.svg?branch=master
+[Build Status]: https://travis-ci.org/bollwyvl/hy_kernel
 [IPythonKernel]: https://github.com/ipython/ipython/blob/master/IPython/kernel/zmq/ipkernel.py
 [KernelBase]: https://github.com/ipython/ipython/blob/master/IPython/kernel/zmq/kernelbase.py
 [lighttable-hylang]: https://github.com/cndreisbach/lighttable-hylang
@@ -67,3 +67,4 @@ Issues, pull requests and forks are all supported and encouraged. This
 [ipydev]: http://ipython.org/ipython-doc/dev/install/install.html#installing-the-development-version
 [discuss]: https://groups.google.com/forum/#!topic/hylang-discuss/UkoET6pU5sM
 [astor]: https://github.com/berkerpeksag/astor
+[magic]: http://nbviewer.ipython.org/github/bollwyvl/hy_kernel/blob/master/notebooks/Magics.ipynb
