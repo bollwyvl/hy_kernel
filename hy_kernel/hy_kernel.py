@@ -4,9 +4,10 @@ from IPython.kernel.zmq.ipkernel import IPythonKernel
 
 import astor
 
+from hy.macros import _hy_macros, load_macros
+
 from hy.lex import tokenize
-from hy.compiler import hy_compile
-from hy.completer import PATH
+from hy.compiler import hy_compile, _compile_table
 
 
 class HyKernel(IPythonKernel):
@@ -15,6 +16,10 @@ class HyKernel(IPythonKernel):
     language = 'hy'
     language_version = '0.10.1'
     banner = 'Hy is a wonderful dialect of Lisp that’s embedded in Python.'
+
+    def __init__(self, *args, **kwargs):
+        super(HyKernel, self).__init__(*args, **kwargs)
+        [load_macros(m) for m in ['hy.core', 'hy.macros']]
 
     def do_execute(self, code, *args, **kwargs):
         '''
@@ -43,7 +48,7 @@ class HyKernel(IPythonKernel):
         # mangle underscores into dashes
         matches = [match.replace('_', '-') for match in matches]
 
-        for p in PATH:
+        for p in list(_hy_macros.values()) + [_compile_table]:
             p = filter(lambda x: isinstance(x, str), p.keys())
             p = [x.replace('_', '-') for x in p]
             matches.extend([
