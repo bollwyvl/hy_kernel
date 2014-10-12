@@ -1,7 +1,6 @@
 import os
 import re
 import sys
-import time
 
 from glob import glob
 
@@ -9,12 +8,14 @@ from hy_kernel import setup_assets
 
 from IPython.testing import iptestcontroller
 
+
 join = os.path.join
 
 test_root = os.path.dirname(__file__)
 
 tests = glob(join(test_root, 'test_*.coffee')) + \
     glob(join(test_root, 'test_*.js'))
+
 
 class JSController(iptestcontroller.JSController):
     def __init__(self, section, xunit=True, engine='phantomjs'):
@@ -47,7 +48,7 @@ class JSController(iptestcontroller.JSController):
         )
 
 
-def main():
+def test_notebook():
     controller = JSController('hy')
     exitcode = 1
     try:
@@ -59,7 +60,7 @@ def main():
         exitcode = 1
     finally:
         controller.cleanup()
-    return exitcode
+    assert exitcode == 0
 
 if __name__ == '__main__':
-    sys.exit(main())
+    sys.exit(test_notebook())
