@@ -1,5 +1,5 @@
 hy>=0.10.1
-git+git://github.com/ipython/ipython.git#egg=ipython
+https://github.com/ipython/ipython/archive/master.zip#egg=ipython
 jinja2
 sphinx
 pygments
