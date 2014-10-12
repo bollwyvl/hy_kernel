@@ -11,3 +11,4 @@ jsonschema
 jsonpointer
 mistune
 nose
+flake8
