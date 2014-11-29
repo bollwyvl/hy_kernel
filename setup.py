@@ -37,11 +37,12 @@ setup(
     ],
     dependency_links=[
         "git+git://github.com/ipython/ipython.git#egg=IPython-3.0.0-dev"
-    ]
+    ],
     classifiers = [
         'Framework :: IPython',
         'License :: OSI Approved :: BSD License',
         'Programming Language :: Python :: 3',
+        'Programming Language :: Python :: 2',
         'Programming Language :: Lisp',
     ],
     
