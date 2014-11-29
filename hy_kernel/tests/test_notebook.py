@@ -11,22 +11,16 @@ from IPython.testing import iptestcontroller
 
 join = os.path.join
 
-test_root = os.path.dirname(__file__)
+TEST_ROOT = os.path.dirname(__file__)
 
-tests = glob(join(test_root, 'test_*.coffee')) + \
-    glob(join(test_root, 'test_*.js'))
+TESTS = glob(join(TEST_ROOT, 'test_*.coffee')) + \
+    glob(join(TEST_ROOT, 'test_*.js'))
 
 
 class JSController(iptestcontroller.JSController):
-    def __init__(self, section, xunit=True, engine='phantomjs'):
-        '''Create new test runner.'''
-        iptestcontroller.TestController.__init__(self)
-
-        self.engine = engine
-        self.section = section
-        self.xunit = xunit
-        self.slimer_failure = re.compile('^FAIL.*', flags=re.MULTILINE)
-
+    def __init__(self, *args, **kwargs):
+        '''Create new test runner.''' 
+        super(JSController, self).__init__(*args, **kwargs)
         # get the test dir for utils
         ip_test_dir = iptestcontroller.get_js_test_dir()
 
@@ -35,7 +29,7 @@ class JSController(iptestcontroller.JSController):
             '--engine=%s' % self.engine
         ]
 
-        self.cmd = ['casperjs', 'test'] + extras + tests
+        self.cmd = ['casperjs', 'test'] + extras + TESTS
 
     def setup(self):
         # let the super set up the temporary ipython dir
