@@ -1,5 +1,4 @@
 import os
-import re
 import sys
 
 from glob import glob
@@ -19,7 +18,7 @@ TESTS = glob(join(TEST_ROOT, 'test_*.coffee')) + \
 
 class JSController(iptestcontroller.JSController):
     def __init__(self, *args, **kwargs):
-        '''Create new test runner.''' 
+        '''Create new test runner.'''
         super(JSController, self).__init__(*args, **kwargs)
         # get the test dir for utils
         ip_test_dir = iptestcontroller.get_js_test_dir()

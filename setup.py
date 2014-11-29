@@ -45,5 +45,5 @@ setup(
         'Programming Language :: Python :: 2',
         'Programming Language :: Lisp',
     ],
-    
+
 )
