@@ -33,7 +33,7 @@ setup(
     cmdclass={'install': install_with_kernelspec},
     install_requires=[
         'hy>=0.10.1',
-        'IPython>=3.0.0'
+        'IPython==3.0.0-dev'
     ],
     dependency_links=[
         "git+git://github.com/ipython/ipython.git#egg=IPython-3.0.0-dev"
