@@ -16,23 +16,47 @@ This requires IPython 3, which is not yet released. It is pretty easy to
 - [pretty good tests][Build Status]
 
 ## Installation
-To give it a spin, either check out this repo and `python setup.py install` or:
+To give it a spin, either:
+
+use `pip` 
 
 ```shell
 pip install -U https://github.com/bollwyvl/hy_kernel/zipball/master
 ```
 
-Then:
+or the equivalent
 
 ```shell
-ipython notebook
+git clone https://github.com/bollwyvl/hy_kernel.git
+cd hy_kernel
+pip install -r requirements-test.txt
+python setup.py install
+# just to be sure
+python -m hy_kernel.setup_assets
 ```
 
-start a new notebook and pick the `Hy` kernel from the kernel selector. Or:
+## Execution
+To start the notebook in your directory of choice, with a running Hy kernel:
+```console
+ipython console --kernel hy
+```
 
+Or the notebook web GUI:
+```shell
+ipython notebook --kernel hy
+```
+
+Or:
 ```shell
 ipython qtconsole --kernel hy
 ```
+
+Or:
+Your GUI might have a kernel selector: In the Web GUI it's in the 
+upper-right-hand corner. Find it, and select `Hy` kernel from the kernel 
+selector.
+![IPython Kernel Selector ](http://ipython.org/ipython-doc/dev/_images/kernel_selector_screenshot.png)
+
 
 > Note:
 A lot of things don't work quite right in the qt console, and this will not be
@@ -43,8 +67,8 @@ supported to the same extent as the HTML notebook.
 This kernel subclasses [IPythonKernel][] directly, as opposed to using
 [KernelBase][], which is probably the correct thing to do. This works, but might
 be brittle. Each cell is run through [astor][], so you're actually seeing hy →
-ast → py. While this probably incurs additional overhead, the benefits (free
-magics, all the history works) are just too great to give up.
+ast → py → ast. While this probably incurs additional overhead, the benefits 
+(free magics, all the history works) are just too great to give up.
 
 Browser-based syntax highlighting is installed into the `static` area of the
 default IPython profile at install time... this could probably be done better.

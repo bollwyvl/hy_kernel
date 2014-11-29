@@ -1,14 +1,3 @@
-hy>=0.10.1
-git+git://github.com/ipython/ipython.git#egg=ipython
-jinja2
-sphinx
-pygments
-tornado
-requests
-mock
-pyzmq
-jsonschema
-jsonpointer
-mistune
-nose
+-r requirements-nb.txt
 flake8
+nose

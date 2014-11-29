@@ -8,3 +8,5 @@ MANIFEST
 */.ipynb_checkpoints/*
 *.egg-info
 *.xunit.xml
+hy-*.egg
+

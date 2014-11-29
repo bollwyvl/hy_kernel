@@ -1,0 +1,11 @@
+-r requirements.txt
+jsonpointer
+jsonschema
+requests
+pygments
+mistune
+tornado
+jinja2
+sphinx
+pyzmq
+mock
