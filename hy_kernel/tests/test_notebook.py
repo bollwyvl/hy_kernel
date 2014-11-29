@@ -1,3 +1,6 @@
+'''
+Test the hy kernel with JavaScript (well, CoffeeScript) tests
+'''
 import os
 import sys
 
@@ -17,8 +20,13 @@ TESTS = glob(join(TEST_ROOT, 'test_*.coffee')) + \
 
 
 class JSController(iptestcontroller.JSController):
+    '''
+    Maybe not the best way to run a specific set of tests...
+    '''
     def __init__(self, *args, **kwargs):
-        '''Create new test runner.'''
+        '''
+        Create new test runner.
+        '''
         super(JSController, self).__init__(*args, **kwargs)
         # get the test dir for utils
         ip_test_dir = iptestcontroller.get_js_test_dir()
@@ -31,7 +39,9 @@ class JSController(iptestcontroller.JSController):
         self.cmd = ['casperjs', 'test'] + extras + TESTS
 
     def setup(self):
-        # let the super set up the temporary ipython dir
+        '''
+        let the super set up the temporary ipython dir, then install assets
+        '''
         super(JSController, self).setup()
         # install the assets
         setup_assets(
@@ -42,6 +52,9 @@ class JSController(iptestcontroller.JSController):
 
 
 def test_notebook():
+    '''
+    a nose-findable test
+    '''
     controller = JSController('hy')
     exitcode = 1
     try:

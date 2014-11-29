@@ -1,3 +1,6 @@
+'''
+A simple Hy (hylang) kernel for IPython.
+'''
 import ast
 
 from IPython.kernel.zmq.ipkernel import IPythonKernel
@@ -11,6 +14,12 @@ from hy.compiler import hy_compile, _compile_table
 
 
 class HyKernel(IPythonKernel):
+    '''
+    This may not be the recommended way to create a kernel, but seems to bring
+    the most features along for free.
+
+    Seeking a better solution!
+    '''
     implementation = 'hy'
     implementation_version = '0.1'
     language = 'hy'
@@ -18,6 +27,9 @@ class HyKernel(IPythonKernel):
     banner = 'Hy is a wonderful dialect of Lisp that’s embedded in Python.'
 
     def __init__(self, *args, **kwargs):
+        '''
+        Create the hy environment
+        '''
         super(HyKernel, self).__init__(*args, **kwargs)
         [load_macros(m) for m in ['hy.core', 'hy.macros']]
 
@@ -63,6 +75,7 @@ class HyKernel(IPythonKernel):
             'metadata': {},
             'status': 'ok'
         }
+
 
 if __name__ == '__main__':
     from IPython.kernel.zmq.kernelapp import IPKernelApp
