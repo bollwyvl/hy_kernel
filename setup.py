@@ -1,13 +1,13 @@
 import sys
 
 from setuptools import setup, find_packages
-from setuptools.command.install import install
+from setuptools.command.install import install as _install
 
 
-class install_with_kernelspec(install):
+class install(_install):
     def run(self):
         # Regular installation
-        install.run(self)
+        _install.run(self)
 
         from hy_kernel import setup_assets
         setup_assets()
@@ -30,10 +30,19 @@ setup(
     url='https://github.com/bollwyvl/hy_kernel',
     packages=find_packages(exclude=('tests', 'notebooks')),
     include_package_data=True,
-    cmdclass={'install': install_with_kernelspec},
     install_requires=[
+        'IPython==3.0.0-dev',
         'hy>=0.10.1',
-        'IPython==3.0.0-dev'
+        'jsonpointer',
+        'jsonschema',
+        'requests',
+        'pygments',
+        'mistune',
+        'tornado',
+        'jinja2',
+        'sphinx',
+        'pyzmq',
+        'mock',
     ],
     dependency_links=[
         "git+git://github.com/ipython/ipython.git#egg=IPython-3.0.0-dev"
