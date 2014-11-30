@@ -4,6 +4,7 @@ A simple Hy (hylang) kernel for IPython.
 import ast
 
 from IPython.kernel.zmq.ipkernel import IPythonKernel
+from IPython.utils.py3compat import PY3
 
 import astor
 
@@ -13,6 +14,7 @@ from hy.macros import _hy_macros, load_macros
 
 from hy.lex import tokenize
 from hy.compiler import hy_compile, _compile_table
+from hy.core import language
 
 from .version import __version__
 
@@ -45,6 +47,19 @@ class HyKernel(IPythonKernel):
         '''
         super(HyKernel, self).__init__(*args, **kwargs)
         [load_macros(m) for m in ['hy.core', 'hy.macros']]
+
+    def _forward_input(self, *args, **kwargs):
+        """Forward raw_input and getpass to the current frontend.
+
+        via input_request
+        """
+        super(HyKernel, self)._forward_input(*args, **kwargs)
+
+        if PY3:
+            language.input = self.raw_input
+        else:
+            language.raw_input = self.raw_input
+            language.input = lambda prompt='': eval(self.raw_input(prompt))
 
     def do_execute(self, code, *args, **kwargs):
         '''
