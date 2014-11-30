@@ -4,14 +4,12 @@
   "language": "hy",
   "codemirror_mode": "hy",
   "language_info": {
-    "name": "Hy",
+    "name": "hy",
     "codemirror_mode": {
-      "mode": "hy",
-      "name": "hy",
-      "mime": "text/x-hylang",
-      "ext": ["hy"],
-      "alias": ["hylang"]
-    }
+      "name": "hy"
+    },
+    "mimetype": "text/x-hylang",
+    "pygments_lexer": "ipython3"
   },
   "help_links": [
     {

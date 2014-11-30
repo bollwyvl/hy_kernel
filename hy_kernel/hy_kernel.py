@@ -33,12 +33,7 @@ class HyKernel(IPythonKernel):
         'name': 'hy',
         'mimetype': 'text/x-hylang',
         'codemirror_mode': {
-            'name': 'hy',
-            'mode': 'hy',
-            'version': hy_version,
-            'mime': 'text/x-hylang',
-            'alias': ['hylang'],
-            'ext': ["hy"]
+            'name': 'hy'
         },
         # TODO: port CM to pygments?
         'pygments_lexer': 'ipython3'
