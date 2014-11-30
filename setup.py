@@ -3,7 +3,8 @@ import sys
 from setuptools import setup, find_packages
 from setuptools.command.install import install as _install
 
-exec open('hy_kernel/version.py')
+with open('hy_kernel/version.py') as version:
+    exec(version.read())
 
 class install(_install):
     def run(self):
