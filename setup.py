@@ -22,7 +22,7 @@ with open('README.md') as f:
 def proxy_cmd(_cmd):
     class Proxied(_cmd):
         def run(self):
-            super(_cmd, self).run()
+            _cmd.run(self)
             from hy_kernel import setup_assets
             setup_assets()
     return Proxied
