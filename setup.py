@@ -7,6 +7,7 @@ from setuptools.command.develop import develop as _develop
 with open('hy_kernel/version.py') as version:
     exec(version.read())
 
+
 class install(_install):
     def run(self):
         # Regular installation
@@ -14,12 +15,14 @@ class install(_install):
         from hy_kernel import setup_assets
         setup_assets()
 
+
 class develop(_develop):
     def run(self):
         # Regular develop
         _develop.run(self)
         from hy_kernel import setup_assets
         setup_assets()
+
 
 with open('README.md') as f:
     readme = f.read()

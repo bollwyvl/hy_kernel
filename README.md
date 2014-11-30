@@ -43,7 +43,7 @@ ipython console --kernel hy
 
 Or the notebook web GUI:
 ```shell
-ipython notebook --kernel hy
+ipython notebook
 ```
 
 Or:
