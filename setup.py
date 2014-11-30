@@ -2,6 +2,7 @@ import sys
 
 from setuptools import setup, find_packages
 from setuptools.command.install import install as _install
+from setuptools.command.develop import develop as _develop
 
 with open('hy_kernel/version.py') as version:
     exec(version.read())
@@ -10,7 +11,13 @@ class install(_install):
     def run(self):
         # Regular installation
         _install.run(self)
+        from hy_kernel import setup_assets
+        setup_assets()
 
+class develop(_develop):
+    def run(self):
+        # Regular develop
+        _develop.run(self)
         from hy_kernel import setup_assets
         setup_assets()
 
@@ -46,6 +53,10 @@ setup(
         'pyzmq',
         'mock',
     ],
+    cmdclass={
+        'install': install,
+        'develop': develop
+    },
     dependency_links=[
         "git+git://github.com/ipython/ipython.git#egg=IPython-3.0.0-dev"
     ],
