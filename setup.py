@@ -3,6 +3,7 @@ import sys
 from setuptools import setup, find_packages
 from setuptools.command.install import install as _install
 
+exec open('hy_kernel/version.py')
 
 class install(_install):
     def run(self):
@@ -22,7 +23,7 @@ if svem_flag in sys.argv:
 
 setup(
     name='hy_kernel',
-    version='0.1',
+    version=__version__,
     description='A hy kernel for IPython',
     long_description=readme,
     author='Nicholas Bollweg',
@@ -54,5 +55,5 @@ setup(
         'Programming Language :: Python :: 2',
         'Programming Language :: Lisp',
     ],
-
+    test_suite='nose.collector',
 )

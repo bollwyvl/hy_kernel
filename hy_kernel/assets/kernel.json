@@ -3,6 +3,16 @@
   "display_name": "Hy",
   "language": "hy",
   "codemirror_mode": "hy",
+  "language_info": {
+    "name": "Hy",
+    "codemirror_mode": {
+      "mode": "hy",
+      "name": "hy",
+      "mime": "text/x-hylang",
+      "ext": ["hy"],
+      "alias": ["hylang"]
+    }
+  },
   "help_links": [
     {
       "text": "Hy Documentation",

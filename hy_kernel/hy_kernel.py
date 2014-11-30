@@ -7,10 +7,14 @@ from IPython.kernel.zmq.ipkernel import IPythonKernel
 
 import astor
 
+from hy.version import __version__ as hy_version
+
 from hy.macros import _hy_macros, load_macros
 
 from hy.lex import tokenize
 from hy.compiler import hy_compile, _compile_table
+
+from .version import __version__
 
 
 class HyKernel(IPythonKernel):
@@ -21,10 +25,24 @@ class HyKernel(IPythonKernel):
     Seeking a better solution!
     '''
     implementation = 'hy'
-    implementation_version = '0.1'
+    implementation_version = __version__
     language = 'hy'
-    language_version = '0.10.1'
+    language_version = hy_version
     banner = 'Hy is a wonderful dialect of Lisp that’s embedded in Python.'
+    language_info = {
+        'name': 'hy',
+        'mimetype': 'text/x-hylang',
+        'codemirror_mode': {
+            'name': 'hy',
+            'mode': 'hy',
+            'version': hy_version,
+            'mime': 'text/x-hylang',
+            'alias': ['hylang'],
+            'ext': ["hy"]
+        },
+        # TODO: port CM to pygments?
+        'pygments_lexer': 'ipython3'
+    }
 
     def __init__(self, *args, **kwargs):
         '''
