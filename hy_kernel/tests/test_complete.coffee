@@ -24,5 +24,5 @@ casper.notebook_test ->
     @test.assertExists "#complete .introspection", "hy completions available"
 
   @then ->
-    @capture "complete.png"
+    @capture "screenshots/complete.png"
     
