@@ -4,33 +4,29 @@ from setuptools import setup, find_packages
 from setuptools.command.install import install as _install
 from setuptools.command.develop import develop as _develop
 
-with open('hy_kernel/version.py') as version:
-    exec(version.read())
-
-
-class install(_install):
-    def run(self):
-        # Regular installation
-        _install.run(self)
-        from hy_kernel import setup_assets
-        setup_assets()
-
-
-class develop(_develop):
-    def run(self):
-        # Regular develop
-        _develop.run(self)
-        from hy_kernel import setup_assets
-        setup_assets()
-
-
-with open('README.md') as f:
-    readme = f.read()
 
 svem_flag = '--single-version-externally-managed'
 if svem_flag in sys.argv:
     # Die, setuptools, die.
     sys.argv.remove(svem_flag)
+
+
+with open('hy_kernel/version.py') as version:
+    exec(version.read())
+
+
+with open('README.md') as f:
+    readme = f.read()
+
+
+def proxy_cmd(_cmd):
+    class Proxied(_cmd):
+        def run(self):
+            super(_cmd, self).run()
+            from hy_kernel import setup_assets
+            setup_assets()
+    return Proxied
+
 
 setup(
     name='hy_kernel',
@@ -57,8 +53,8 @@ setup(
         'mock',
     ],
     cmdclass={
-        'install': install,
-        'develop': develop
+        'install': proxy_cmd(_install),
+        'develop': proxy_cmd(_develop)
     },
     dependency_links=[
         "git+git://github.com/ipython/ipython.git#egg=IPython-3.0.0-dev"
