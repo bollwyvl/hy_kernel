@@ -39,18 +39,8 @@ setup(
     packages=find_packages(exclude=('tests', 'notebooks')),
     include_package_data=True,
     install_requires=[
-        'IPython==3.0.0-dev',
+        'IPython[notebook]>=3.0.0',
         'hy>=0.10.1',
-        'jsonpointer',
-        'jsonschema',
-        'requests',
-        'pygments',
-        'mistune',
-        'tornado',
-        'jinja2',
-        'sphinx',
-        'pyzmq',
-        'mock',
     ],
     cmdclass={
         'install': proxy_cmd(_install),
@@ -59,7 +49,7 @@ setup(
     dependency_links=[
         "git+git://github.com/ipython/ipython.git#egg=IPython-3.0.0-dev"
     ],
-    classifiers = [
+    classifiers=[
         'Framework :: IPython',
         'License :: OSI Approved :: BSD License',
         'Programming Language :: Python :: 3',

@@ -4,11 +4,15 @@ python:
   - 2.7
   - 3.3
   - 3.4
+sudo: false
+cache:
+  pip: true
+  directories:
+    - node_modules
 before_install:
   - npm install -g casperjs
   - phantomjs --version
   - casperjs --version
-  - sudo apt-get install libzmq3-dev
 install:
   - pip install -r requirements-test.txt
   - python setup.py install

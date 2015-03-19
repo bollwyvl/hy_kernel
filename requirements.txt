@@ -1,2 +1,2 @@
 hy>=0.10.1
-git+git://github.com/ipython/ipython.git#egg=IPython
+IPython[notebook]>=3.0.0
