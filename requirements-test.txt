@@ -1,3 +1,4 @@
 -r requirements.txt
+requests
 flake8
 nose

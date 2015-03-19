@@ -1,49 +1,15 @@
 import os
-import shutil
 
 join = os.path.join
 pkgroot = os.path.dirname(__file__)
 
 
-def setup_assets(kernel_dir=None, profile_dir=None, quiet=False):
+def setup_assets(user=False):
     # Now write the kernelspec
-    from IPython.kernel.kernelspec import KernelSpecManager
-    from IPython.utils.path import ensure_dir_exists, locate_profile
+    from IPython.kernel.kernelspec import install_kernel_spec
 
-    destdir = join(kernel_dir or KernelSpecManager().user_kernel_dir, 'hy')
-    ensure_dir_exists(destdir)
-    shutil.copy(join(pkgroot, "assets", "kernel.json"), destdir)
-    if not quiet:
-        print("Updated kernel.json in %s" % destdir)
-
-    try:
-        profile_dir = profile_dir or locate_profile()
-    except Exception as err:
-        print(err)
-        print(
-            "Couldn't find a profile, probably... run\n"
-            "\tpython -m hy_kernel.hy_setup\n"
-            "manually."
-        )
-        return
-
-    cmhydir = join(
-        profile_dir,
-        'static',
-        'components',
-        'codemirror',
-        'mode',
-        'hy'
-    )
-    ensure_dir_exists(cmhydir)
-    shutil.copy(join(pkgroot, "assets", "hy.js"), cmhydir)
-    if not quiet:
-        print("Installed hy.js to %s" % cmhydir)
+    install_kernel_spec(join(pkgroot, 'assets'), 'hy', replace=True, user=user)
 
 
-def hy_setup():
+if __name__ == '__main__':
     setup_assets()
-
-
-if __name__ == "__main__":
-    hy_setup()

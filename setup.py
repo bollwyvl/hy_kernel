@@ -24,7 +24,7 @@ def proxy_cmd(_cmd):
         def run(self):
             _cmd.run(self)
             from hy_kernel import setup_assets
-            setup_assets()
+            setup_assets(True)
     return Proxied
 
 
@@ -46,9 +46,6 @@ setup(
         'install': proxy_cmd(_install),
         'develop': proxy_cmd(_develop)
     },
-    dependency_links=[
-        "git+git://github.com/ipython/ipython.git#egg=IPython-3.0.0-dev"
-    ],
     classifiers=[
         'Framework :: IPython',
         'License :: OSI Approved :: BSD License',
