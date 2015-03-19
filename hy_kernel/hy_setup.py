@@ -13,8 +13,10 @@ def setup_assets(kernel_dir=None, profile_dir=None, quiet=False):
     destdir = join(kernel_dir or KernelSpecManager().user_kernel_dir, 'hy')
     ensure_dir_exists(destdir)
     shutil.copy(join(pkgroot, "assets", "kernel.json"), destdir)
+    shutil.copy(join(pkgroot, "assets", "logo-32x32.png"), destdir)
+    shutil.copy(join(pkgroot, "assets", "logo-64x64.png"), destdir)
     if not quiet:
-        print("Updated kernel.json in %s" % destdir)
+        print("Updated kernel.json and logos in %s" % destdir)
 
     try:
         profile_dir = profile_dir or locate_profile()
