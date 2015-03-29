@@ -50,11 +50,7 @@ def setup():
     save_get_ipython_dir = path.get_ipython_dir
     path.get_ipython_dir = lambda: IPYTHONDIR
 
-    setup_assets(
-        kernel_dir=os.path.join(IPYTHONDIR, 'kernels'),
-        profile_dir=os.path.join(IPYTHONDIR, 'profile', 'default'),
-        quiet=True
-    )
+    setup_assets(user=True)
 
 
 def teardown():
@@ -83,7 +79,7 @@ def new_kernel():
     KC.start_channels()
 
     # wait for kernel to be ready
-    KC.shell_channel.execute("import sys")
+    KC.execute("import sys")
     KC.shell_channel.get_msg(block=True, timeout=STARTUP_TIMEOUT)
     flush_channels(KC)
     try:

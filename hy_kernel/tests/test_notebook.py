@@ -3,6 +3,8 @@ Test the hy kernel with JavaScript (well, CoffeeScript) tests
 '''
 import os
 import sys
+import signal
+import time
 
 from glob import glob
 
@@ -15,8 +17,7 @@ join = os.path.join
 
 TEST_ROOT = os.path.dirname(__file__)
 
-TESTS = glob(join(TEST_ROOT, 'test_*.coffee')) + \
-    glob(join(TEST_ROOT, 'test_*.js'))
+TESTS = glob(join(TEST_ROOT, 'test_*.coffee'))
 
 
 class JSController(iptestcontroller.JSController):
@@ -44,11 +45,7 @@ class JSController(iptestcontroller.JSController):
         '''
         super(JSController, self).setup()
         # install the assets
-        setup_assets(
-            kernel_dir=join(self.ipydir.name, 'kernels'),
-            profile_dir=join(self.ipydir.name, 'profile', 'default'),
-            quiet=True
-        )
+        setup_assets(user=True, ipython_dir=self.ipydir.name)
 
 
 def test_notebook():
@@ -58,12 +55,18 @@ def test_notebook():
     controller = JSController('hy')
     exitcode = 1
     try:
-        controller.setup()
-        controller.launch(buffer_output=False)
+        try:
+            controller.setup()
+            controller.launch(buffer_output=False)
+        except Exception:
+            import traceback
+            traceback.print_exc()
+            return controller, 1  # signal failure
+
         exitcode = controller.wait()
-    except Exception as err:
-        print(err)
-        exitcode = 1
+        return controller, exitcode
+    except KeyboardInterrupt:
+        return controller, -signal.SIGINT
     finally:
         controller.cleanup()
     assert exitcode == 0

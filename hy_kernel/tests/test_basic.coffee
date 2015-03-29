@@ -1,25 +1,20 @@
 casper.notebook_test ->
+
   cells = {}
 
-  @then ->
-    @viewport 1024, 768
-    @click "#current_kernel_spec"
-    
-  @then ->
-    @test.assertExists "#kernel-hy a", "is available"
-  
-  @then ->
-    @click "#kernel-hy a"
+  capture = require("./capture") @, "basic"
 
-
-  @wait 5000
-  @wait_for_idle()
-    
   @then ->
-    @execute_cell cells.addition = @append_cell "(+ 1 1)", "code"
+    @viewport 1024, 768, ->
+      @evaluate -> IPython.kernelselector.set_kernel "hy"
+      @wait_for_idle()
+
+  capture "hy_kernel"
+
+  @then -> @execute_cell cells.addition = @append_cell "(+ 1 1)", "code"
   @wait_for_idle()
-  
-  @then -> @capture "screenshots/1_plus_1.png"
+
+  capture "1_plus_1"
 
   @then ->
     @test.assertMatch @get_output_cell(cells.addition, 0).data["text/plain"],
@@ -33,13 +28,13 @@ casper.notebook_test ->
 
   @wait_for_idle()
 
-  @then -> @capture "screenshots/setv_x_1.png"
+  capture "setv_x_1"
 
   @then ->
     @test.assertMatch @get_output_cell(cells.printx , 0).data["text/plain"],
       /^1L?$/,
       "variables persist"
-        
+
   @then ->
     @execute_cell cells.magic = @append_cell """
     %%timeit
@@ -48,11 +43,9 @@ casper.notebook_test ->
 
   @wait_for_idle()
 
-  @then -> @capture "screenshots/magic.png"
+  capture "magic"
 
   @then ->
     @test.assertMatch @get_output_cell(cells.magic, 0).text,
       /loops/,
       "a cell magic works"
-
-    

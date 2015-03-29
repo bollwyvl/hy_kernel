@@ -1,16 +1,13 @@
 casper.notebook_test ->
   cells = {}
 
-  @then ->
-    @viewport 1024, 768
-    @click "#current_kernel_spec"
-  
-  @then ->
-    @click "#kernel-hy a"
+  capture = require("./capture") @, "complete"
 
-  @wait 5000
-  @wait_for_idle()
-  
+  @then ->
+    @viewport 1024, 768, ->
+      @evaluate -> IPython.kernelselector.set_kernel "hy"
+      @wait_for_idle()
+
   @thenEvaluate ->
     IPython.notebook.insert_cell_at_index 0, "code"
     cell = IPython.notebook.get_cell 0
@@ -23,6 +20,4 @@ casper.notebook_test ->
   @then ->
     @test.assertExists "#complete .introspection", "hy completions available"
 
-  @then ->
-    @capture "screenshots/complete.png"
-    
+  capture "complete"
