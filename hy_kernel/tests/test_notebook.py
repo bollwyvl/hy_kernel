@@ -4,7 +4,6 @@ Test the hy kernel with JavaScript (well, CoffeeScript) tests
 import os
 import sys
 import signal
-import time
 
 from glob import glob
 
