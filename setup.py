@@ -5,7 +5,11 @@ from setuptools.command.install import install as _install
 from setuptools.command.develop import develop as _develop
 
 
+# should be loaded below
+__version__ = None
+
 svem_flag = '--single-version-externally-managed'
+
 if svem_flag in sys.argv:
     # Die, setuptools, die.
     sys.argv.remove(svem_flag)
