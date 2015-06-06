@@ -1,2 +1,2 @@
 hy>=0.10.1
-IPython[notebook]>=3.0.0
+IPython>=3.0.0

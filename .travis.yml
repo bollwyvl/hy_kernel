@@ -17,5 +17,5 @@ install:
   - pip install -r requirements-test.txt
   - python setup.py install
 script:
-  - flake8 hy_kernel
+  - flake8 setup.py hy_kernel
   - python setup.py nosetests

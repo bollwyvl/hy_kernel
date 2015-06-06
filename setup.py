@@ -34,8 +34,12 @@ setup(
     packages=find_packages(exclude=('tests', 'notebooks')),
     include_package_data=True,
     install_requires=[
-        'IPython[notebook]>=3.0.0',
+        'IPython>=3.0.0',
         'hy>=0.10.1',
+    ],
+    tests_require=[
+        'coverage',
+        'nose',
     ],
     cmdclass={
         'install': proxy_cmd(_install),

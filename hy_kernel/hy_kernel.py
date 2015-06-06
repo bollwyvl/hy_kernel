@@ -13,7 +13,7 @@ from hy.version import __version__ as hy_version
 from hy.macros import _hy_macros, load_macros
 
 from hy.lex import tokenize
-from hy.compiler import hy_compile, _compile_table
+from hy.compiler import hy_compile, _compile_table, load_stdlib
 from hy.core import language
 
 from .version import __version__
@@ -46,6 +46,7 @@ class HyKernel(IPythonKernel):
         Create the hy environment
         '''
         super(HyKernel, self).__init__(*args, **kwargs)
+        load_stdlib()
         [load_macros(m) for m in ['hy.core', 'hy.macros']]
 
     def _forward_input(self, *args, **kwargs):
