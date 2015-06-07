@@ -3,7 +3,6 @@ Test the hy kernel with JavaScript (well, CoffeeScript) tests
 '''
 import os
 import sys
-import signal
 
 from glob import glob
 
