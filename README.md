@@ -76,7 +76,7 @@ supported to the same extent as the HTML notebook and terminal console.
 
 ### Operators
 
-> Issue #5
+_Issue #5_
 
 Use of operators e.g. `*`, `+`, `/` as the left-most atom in an expression appears to
 work:
@@ -109,7 +109,7 @@ when we currently understand the problem, but you may encounter surprises!
 
 #### Parameters
 
-> Issue #12
+_Issue #12_
 
 Currently, line magics and cell magics fail when given parameters. This is
 pretty bad.
@@ -129,7 +129,7 @@ both break.
 
 #### "Inline" Line Magics
 
-> Issue #13
+_Issue #13_
 
 Because we don't have much whitespace control over what gets compiled, and can't
 do dirty tricks with comments (the hy compiler strips them), inline/indented
