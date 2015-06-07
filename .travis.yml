@@ -5,9 +5,10 @@ python:
   - 3.4
 sudo: false
 cache:
-  pip: true
   directories:
     - node_modules
+    - /home/travis/virtualenv/python3.4.2/lib/python3.4/site-packages
+    - /home/travis/virtualenv/python2.7.9/lib/python2.7/site-packages
 before_install:
   - npm install -g casperjs
   - phantomjs --version
