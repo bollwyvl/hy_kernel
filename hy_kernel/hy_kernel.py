@@ -31,6 +31,8 @@ CELL_MAGIC_ANY = r'%%'
 CELL_MAGIC_HY = r'^%%[^%]'
 CELL_MAGIC_RAW = r'^%%%'
 
+MAGIC_PARAM = r'^\s*[%!][^\n]*\s[^\n]'
+
 
 class HyKernel(IPythonKernel):
     '''
@@ -85,6 +87,10 @@ class HyKernel(IPythonKernel):
         '''
 
         try:
+            if re.match(MAGIC_PARAM, code):
+                print('Magics with parameters are not supported',
+                      file=io.stderr)
+
             if re.match(CELL_MAGIC_ANY, code) and not self._cell_magic_warned:
                 print('If your cell magic doesn\'t take code, use %%%',
                       file=io.stderr)
