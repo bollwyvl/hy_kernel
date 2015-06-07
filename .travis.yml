@@ -13,7 +13,8 @@ before_install:
   - phantomjs --version
   - casperjs --version
 install:
-  - pip install --download-cache $HOME/.pip-cache IPython[notebook] -r requirements-test.txt
+  - pip install --download-cache $HOME/.pip-cache -r requirements-test.txt
+  - pip install --download-cache $HOME/.pip-cache IPython[notebook]
   - python setup.py install
 script:
   - flake8 setup.py hy_kernel
