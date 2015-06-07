@@ -74,7 +74,10 @@ give up.
 A lot of things don't work quite right in the qt console, and this will not be
 supported to the same extent as the HTML notebook and terminal console.
 
-### Operators (#5)
+### Operators
+
+> Issue #5
+
 Use of operators e.g. `*`, `+`, `/` as the left-most atom in an expression appears to
 work:
 ```hylang
@@ -83,7 +86,6 @@ work:
 ```
 
 Using operators as just about anything else doesn't:
-in #5.
 ```hylang
 ;; breaks
 (reduce + [1 2 3])
@@ -105,7 +107,10 @@ Cell and line magics are "supported". The real fix will require defining a
 family of magic macros, most likely. Warnings are provided over `stderr`
 when we currently understand the problem, but you may encounter surprises!
 
-#### Parameters (#12)
+#### Parameters
+
+> Issue #12
+
 Currently, line magics and cell magics fail when given parameters. This is
 pretty bad.
 
@@ -122,7 +127,10 @@ and
 
 both break.
 
-#### "Inline" Line Magics (#13)
+#### "Inline" Line Magics
+
+> Issue #13
+
 Because we don't have much whitespace control over what gets compiled, and can't
 do dirty tricks with comments (the hy compiler strips them), inline/indented
 line magics are probably not going to work.
@@ -138,7 +146,7 @@ line magics are probably not going to work.
 Additionally, cell magics that should _not_ be parsed as Hy need to be _extra_-
 magiced, with `%%%`. This is because there is no way to know whether a
 particular magic expects python, or some other crazy thing e.g. html, ruby,
-a file... not that file works anyway (see above).
+a file... not that `%%file` works anyway (see #12).
 
 ```hylang
 %%html
