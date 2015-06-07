@@ -35,21 +35,6 @@ casper.notebook_test ->
       /^1L?$/,
       "variables persist"
 
-  @then ->
-    @execute_cell cells.magic = @append_cell """
-    %%timeit
-    (+ 1 1)
-    """, "code"
-
-  @wait_for_idle()
-
-  capture "magic"
-
-  @then ->
-    @test.assertMatch @get_output_cell(cells.magic, 0).text,
-      /loops/,
-      "a cell magic works"
-
   @wait_for_idle()
 
   @then ->

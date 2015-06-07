@@ -1,10 +1,16 @@
 '''
 A simple Hy (hylang) kernel for IPython.
 '''
+from __future__ import print_function
+
+import __future__  # NOQA
+
 import ast
+import re
 
 from IPython.kernel.zmq.ipkernel import IPythonKernel
 from IPython.utils.py3compat import PY3
+from IPython.utils import io
 
 import astor
 
@@ -17,6 +23,15 @@ from hy.compiler import hy_compile, _compile_table, load_stdlib
 from hy.core import language
 
 from .version import __version__
+
+
+LINE_MAGIC_ANY = r'\s*[%!][^%]'
+
+CELL_MAGIC_ANY = r'%%'
+CELL_MAGIC_HY = r'^%%[^%]'
+CELL_MAGIC_RAW = r'^%%%'
+
+MAGIC_PARAM = r'^\s*[%!][^\n]*\s[^\n]'
 
 
 class HyKernel(IPythonKernel):
@@ -49,6 +64,9 @@ class HyKernel(IPythonKernel):
         load_stdlib()
         [load_macros(m) for m in ['hy.core', 'hy.macros']]
 
+        self._cell_magic_warned = False
+        self._line_magic_warned = False
+
     def _forward_input(self, *args, **kwargs):
         """Forward raw_input and getpass to the current frontend.
 
@@ -67,12 +85,32 @@ class HyKernel(IPythonKernel):
         Generate python code, and have IPythonKernel run it, or show why we
         couldn't have python code.
         '''
+
         try:
-            tokens = tokenize(code)
-            _ast = hy_compile(tokens, '__console__', root=ast.Interactive)
-            _ast_for_print = ast.Module()
-            _ast_for_print.body = _ast.body
-            code = astor.codegen.to_source(_ast_for_print)
+            if re.match(MAGIC_PARAM, code):
+                print('Magics with parameters are not supported',
+                      file=io.stderr)
+
+            if re.match(CELL_MAGIC_ANY, code) and not self._cell_magic_warned:
+                print('If your cell magic doesn\'t take code, use %%%',
+                      file=io.stderr)
+                self._cell_magic_warned = True
+
+            if re.match(LINE_MAGIC_ANY, code) and not self._line_magic_warned:
+                print('Line magics inside expressions or with args '
+                      'probably won\'t work',
+                      file=io.stderr)
+                self._line_magic_warned = True
+
+            if re.match(CELL_MAGIC_RAW, code):
+                # this is a none-code magic cell
+                pass
+            else:
+                tokens = tokenize(code)
+                _ast = hy_compile(tokens, '__console__', root=ast.Interactive)
+                _ast_for_print = ast.Module()
+                _ast_for_print.body = _ast.body
+                code = astor.codegen.to_source(_ast_for_print)
         except Exception as err:
             if (not hasattr(err, 'source')) or not err.source:
                 err.source = code
