@@ -49,3 +49,17 @@ casper.notebook_test ->
     @test.assertMatch @get_output_cell(cells.magic, 0).text,
       /loops/,
       "a cell magic works"
+
+  @wait_for_idle()
+
+  @then ->
+    @execute_cell cells.usefor = @append_cell "(for [i (range 3)] (print i))", "code"
+
+  @wait_for_idle()
+
+  capture "use_for"
+
+  @then ->
+    @test.assertMatch @get_output_cell(cells.usefor, 0).text,
+      /^0\n1\n2\n$/,
+      "using `for` works"

@@ -3,7 +3,6 @@ Test the hy kernel with JavaScript (well, CoffeeScript) tests
 '''
 import os
 import sys
-import signal
 
 from glob import glob
 
@@ -49,23 +48,17 @@ class JSController(iptestcontroller.JSController):
 
 def test_notebook():
     '''
-    a nose-findable test
+    Test with PhantomJS
     '''
     controller = JSController('hy')
     exitcode = 1
     try:
-        try:
-            controller.setup()
-            controller.launch(buffer_output=False)
-        except Exception:
-            import traceback
-            traceback.print_exc()
-            return controller, 1  # signal failure
-
+        controller.setup()
+        controller.launch(buffer_output=False)
         exitcode = controller.wait()
-        return controller, exitcode
-    except KeyboardInterrupt:
-        return controller, -signal.SIGINT
+    except Exception as err:
+        print(err)
+        exitcode = 1
     finally:
         controller.cleanup()
     assert exitcode == 0

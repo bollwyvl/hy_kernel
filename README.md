@@ -70,6 +70,13 @@ Browser-based syntax highlighting is installed into the `static` area of the
 default IPython profile at install time... this could probably be done better.
 
 
+## Docker
+You can try out Hy Kernel in Docker with Docker Compose:
+```bash
+git clone https://github.com/bollwyvl/hy_kernel.git
+cd hy_kernel && docker-compose up
+```
+
 ## Feedback
 Issues, pull requests and forks are all supported and encouraged. This
 [discussion on `hylang-discuss`][discuss] is also a good place to chime in.

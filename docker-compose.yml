@@ -1,0 +1,8 @@
+hynotebook:
+  build: .
+  command: /notebook.sh
+  environment:
+    USE_HTTP: 1
+    PASSWORD: ""
+  ports:
+    - "8888:8888"

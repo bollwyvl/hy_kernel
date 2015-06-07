@@ -26,4 +26,4 @@ def setup_assets(user=False, ipython_dir=None):
 
 
 if __name__ == '__main__':
-    setup_assets()
+    setup_assets()  # pragma: no cover
