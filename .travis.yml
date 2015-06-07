@@ -7,14 +7,14 @@ sudo: false
 cache:
   directories:
     - node_modules
-    - $HOME/.pip-cache/
+    - $HOME/.cache/pip
 before_install:
   - npm install -g casperjs
   - phantomjs --version
   - casperjs --version
 install:
-  - pip install --download-cache $HOME/.pip-cache -r requirements-test.txt
-  - pip install --download-cache $HOME/.pip-cache IPython[notebook]
+  - pip install -r requirements-test.txt
+  - pip install IPython[notebook]
   - python setup.py install
 script:
   - flake8 setup.py hy_kernel
