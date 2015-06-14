@@ -2,7 +2,7 @@ casper.notebook_test ->
 
   cells = {}
 
-  capture = require("./capture") @, "cookies"
+  capture = require("./capture") @, "basic"
 
   @then ->
     @viewport 1024, 768, ->

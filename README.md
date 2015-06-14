@@ -103,29 +103,7 @@ This will probably need to be fixed upstream.
 
 
 ### Magic
-Cell and line magics are "supported". The real fix will require defining a
-family of magic macros, most likely. Warnings are provided over `stderr`
-when we currently understand the problem, but you may encounter surprises!
-
-#### Parameters
-
-_Issue #12_
-
-Currently, line magics and cell magics fail when given parameters. This is
-pretty bad.
-
-```hylang
-%%file README.md
-# This will never be written
-```
-
-and
-
-```hylang
-%ls this-breaks
-```
-
-both break.
+Cell and line magics are "supported", with the following caveats.
 
 #### "Inline" Line Magics
 
