@@ -10,7 +10,6 @@ import re
 
 from IPython.kernel.zmq.ipkernel import IPythonKernel
 from IPython.utils.py3compat import PY3
-from IPython.utils import io
 
 import astor
 
@@ -24,14 +23,7 @@ from hy.core import language
 
 from .version import __version__
 
-
-LINE_MAGIC_ANY = r'\s*[%!][^%]'
-
-CELL_MAGIC_ANY = r'%%'
-CELL_MAGIC_HY = r'^%%[^%]'
 CELL_MAGIC_RAW = r'^%%%'
-
-MAGIC_PARAM = r'^\s*[%!][^\n]*\s[^\n]'
 
 
 class HyKernel(IPythonKernel):
@@ -87,30 +79,28 @@ class HyKernel(IPythonKernel):
         '''
 
         try:
-            if re.match(MAGIC_PARAM, code):
-                print('Magics with parameters are not supported',
-                      file=io.stderr)
-
-            if re.match(CELL_MAGIC_ANY, code) and not self._cell_magic_warned:
-                print('If your cell magic doesn\'t take code, use %%%',
-                      file=io.stderr)
-                self._cell_magic_warned = True
-
-            if re.match(LINE_MAGIC_ANY, code) and not self._line_magic_warned:
-                print('Line magics inside expressions or with args '
-                      'probably won\'t work',
-                      file=io.stderr)
-                self._line_magic_warned = True
-
             if re.match(CELL_MAGIC_RAW, code):
                 # this is a none-code magic cell
                 pass
             else:
-                tokens = tokenize(code)
-                _ast = hy_compile(tokens, '__console__', root=ast.Interactive)
-                _ast_for_print = ast.Module()
-                _ast_for_print.body = _ast.body
-                code = astor.codegen.to_source(_ast_for_print)
+                cell = []
+                chunk = []
+
+                for line in code.split("\n"):
+                    if line[:2] == "%%":
+                        # cell magic
+                        cell.append(line)
+                    elif line[0] in "!%":
+                        # line magic
+                        if chunk:
+                            cell.append(self.compile_chunk(chunk))
+                            chunk = []
+                        cell.append(line)
+                    else:
+                        chunk.append(line)
+                if chunk:
+                    cell.append(self.compile_chunk(chunk))
+                    code = "\n".join(cell)
         except Exception as err:
             if (not hasattr(err, 'source')) or not err.source:
                 err.source = code
@@ -119,6 +109,13 @@ class HyKernel(IPythonKernel):
             # an empty code cell is basically a no-op
             code = ''
         return super(HyKernel, self).do_execute(code, *args, **kwargs)
+
+    def compile_chunk(self, chunk):
+        tokens = tokenize("\n".join(chunk))
+        _ast = hy_compile(tokens, '__console__', root=ast.Interactive)
+        _ast_for_print = ast.Module()
+        _ast_for_print.body = _ast.body
+        return astor.codegen.to_source(_ast_for_print)
 
     def do_complete(self, code, cursor_pos):
         # let IPython do the heavy lifting for variables, etc.

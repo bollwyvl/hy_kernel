@@ -45,7 +45,7 @@ casper.notebook_test ->
   # ! line magic
   @then ->
     @execute_cell cells.bangline = @append_cell """
-      !ls
+      !ls .
       """, "code"
 
   capture "line-bang"
@@ -59,7 +59,7 @@ casper.notebook_test ->
   # % line magic
   @then ->
     @execute_cell cells.percline = @append_cell """
-      %ls
+      %ls .
       """, "code"
 
   @wait_for_idle()
