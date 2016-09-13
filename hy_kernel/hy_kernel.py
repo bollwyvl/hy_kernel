@@ -90,7 +90,7 @@ class HyKernel(IPythonKernel):
                     if line[:2] == "%%":
                         # cell magic
                         cell.append(line)
-                    elif line[0] in "!%":
+                    elif line[:1] in "!%":
                         # line magic
                         if chunk:
                             cell.append(self.compile_chunk(chunk))
