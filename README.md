@@ -4,6 +4,8 @@
 
 A simple [Jupyter][] kernel for [Hy](http://hylang.org), a pythonic lisp.
 
+> BIG NEWS: check out [calysto_hy](https://github.com/Calysto/calysto_hy/blob/master/calysto_hy/kernel.py), the first-class hy kernel, maintained by the Calysto project. It's already more hy-like than this repo, and will soon be far better!
+
 [![](screenshot.png) _The Hy tutorial as a Jupyter Notebook_][tutorial]
 
 
