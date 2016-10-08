@@ -24,6 +24,7 @@ A simple [Jupyter][] kernel for [Hy](http://hylang.org), a pythonic lisp.
 ### pip
 ```shell
 pip install hy_kernel
+python -m hy_kernel.hy_setup
 ```
 
 
